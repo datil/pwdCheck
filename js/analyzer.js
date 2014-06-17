@@ -54,6 +54,10 @@ function analyzePwd(pwd) {
 		if (pwd.substr(i, 1) == pwd.substr((i+1), 1)) {
 			counter++;
 		}
+		
+		if(pwd.substr(i+1, length-i-1).indexOf(pwd.substr(i, 1)) !== -1) {
+			counter+=0.5;
+		}
 	}
 	// repetitions have to be considered in relation to the given passwords length
 	if (Math.round((counter*100)/length) > 20) {
