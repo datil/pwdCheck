@@ -74,21 +74,22 @@ function analyzePwd(pwd) {
 }
 
 function printAnalysis(score) {
-	console.log("print: " + score)
+	var selector = $('#container #output p');
+
 	if (score >= 0 && score <= 20) {
-		$('#container #output p').text('very weak password');
+		selector.text('very weak password');
 	} else if (score > 20 && score <= 40) {
-		$('#container #output p').text('weak password');
+		selector.text('weak password');
 	} else if (score > 40 && score <= 60) {
-		$('#container #output p').text('medium password');
+		selector.text('medium password');
 	} else if (score > 60 && score <= 80) {
-		$('#container #output p').text('good password');
+		selector.text('good password');
 	} else if (score > 80 && score < 100) {
-		$('#container #output p').text('very good password');
+		selector.text('very good password');
 	} else if (score == 100) {
-		$('#container #output p').text('perfect password');
+		selector.text('perfect password');
 	} else { 
-		$('#container #output p').text('test');
+		selector.text('wrong input');
 	} 
 }
 
