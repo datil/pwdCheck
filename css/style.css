@@ -1,0 +1,47 @@
+@import url('http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800');
+@import url('http://fonts.googleapis.com/css?family=Lato:100,300,400,700,900');
+@import url('font-awesome.min.css');
+
+body {
+  	font: 300 16px/1.5em "Open Sans";
+  	text-transform: lowercase;
+}
+h1 {
+  	font: 100 4em/1em Lato;
+  	margin: 0;
+  	text-transform: uppercase;
+}
+label {
+	float: left;
+	width: 1px;
+}
+input {
+  	float:left;
+  	width:65%;
+  	height: 100%;
+  	margin-top: 25px;
+  	margin-bottom:25px;
+  	padding:5px;
+  	font:13px Lato;
+  	outline:none;
+}
+ul {
+	padding-left: 20px;
+	list-style: none;
+}
+li:before {
+	font-family: 'FontAwesome';
+	content: "\f121";
+	padding-right: 10px;
+}
+li:hover:before {
+	color: #858585;
+}
+
+#container {
+  	width:500px;
+  	margin: 50px auto;
+}
+#output p {
+	padding-left: 30px;
+}

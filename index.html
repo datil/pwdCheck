@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="author" content="Dario Tilgner">
+	<meta name="description" content="Password Check">
+
+	<script src="js/lib/jquery-2.1.1.min.js"></script>
+	<script src="js/analyzer.js"></script>
+
+	<link rel="stylesheet" type="text/css" href="css/style.css">
+
+	<title>Password Check</title>
+</head>
+<body>
+<div id="container">
+	<h1>Password Check</h1>
+	<p>Feel free to check the strength of your chosen password. At the moment the following criteria are in use to determine the actual strength of your password:</p>
+	<ul>
+		<li>length</li>
+		<li>characters? lower/upper case?</li>
+		<li>numbers</li>
+		<li>special characters?</li>
+		<li>repetitions of characters</li>
+	</ul>
+
+	<form action="" id="pwdForm">
+		<label for="pwdInput">Password</label>
+		<input id="pwdInput" name="pwdInput" placeholder="password" type="text">
+	</form>
+	<h1>result</h1>
+	<div id="output">
+		<p></p>
+	</div><!-- div output -->
+</div><!-- div container -->
+</body>
+</html>
