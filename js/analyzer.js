@@ -5,6 +5,7 @@ function analyzePwd(pwd) {
 		3: 'ABCDEFGHIJKLMNOPQRSTUVWXYZ',
 		4: '^!"§$%&/()=?´`°{[]}\*+#-_.:,;<>|~üäöÜÄÖ'
 	};
+	var screeningChar = '';
 	var length = pwd.length;
 	var optLength = 12;
 	var score = 0;
@@ -15,8 +16,9 @@ function analyzePwd(pwd) {
 		3: false, 
 		4: false
 	};
-	var counter = 1; 
-	var i = 0;
+	var counter = 0; 
+	var maxPercentRepetitions = 0;
+	var i = 0, j = 0;
 
 	if (pwd == '') {
 		return 0;
@@ -50,17 +52,36 @@ function analyzePwd(pwd) {
 	}
 
 	// search for repetitions
-	for (i = 0; i < length; i++) {
-		if (pwd.substr(i, 1) == pwd.substr((i+1), 1)) {
-			counter++;
+	for (j = 0; j < length; j++) {
+		counter = 0;
+		screeningChar = pwd.substr(j, 1);
+
+		for (i = 0; i < length; i++) {
+			if (screeningChar == pwd.substr(i, 1)) {
+				counter++;
+			}
+		}
+		/* we search for the highest percentage of repetitions 
+		 *
+		 * Example: 
+		 *		Password is "abcdddabacde"
+		 *			a	-	3 times		-	25.00 %
+		 *			b	-	2 times		-	16.67 %
+		 *			c	-	2 times		-	16.67 %
+		 *			d	-	4 times		-	33.33 %
+		 *			e	-	1 time		-	 8.34 %
+		 */
+		if (((counter*100)/length) >= maxPercentRepetitions) {
+			maxPercentRepetitions = new Number((counter*100)/length);
+			maxPercentRepetitions = maxPercentRepetitions.toPrecision(4);
 		}
 	}
 	// repetitions have to be considered in relation to the given passwords length
-	if (Math.round((counter*100)/length) > 20) {
+	if (maxPercentRepetitions > 20) {
 		score -= 10; 	
-	} else if (Math.round((counter*100/length)) > 35) {
+	} else if (maxPercentRepetitions > 35) {
 		score -= 20;	
-	} else if (Math.round((counter*100)/length) > 50) {
+	} else if (maxPercentRepetitions > 50) {
 		score -= 40;
 	} else {
 		score += 40;
@@ -68,28 +89,29 @@ function analyzePwd(pwd) {
 
 	if (score < 0) {
 		score = 0;
+	} else if (score > 100) {
+		score = maxScore;
 	}
 
 	return score; 
 }
 
 function printAnalysis(score) {
-	var selector = $('#container #output p');
-
+	console.log("score: " + score)
 	if (score >= 0 && score <= 20) {
-		selector.text('very weak password');
+		$('#container #output p').text('very weak password');
 	} else if (score > 20 && score <= 40) {
-		selector.text('weak password');
+		$('#container #output p').text('weak password');
 	} else if (score > 40 && score <= 60) {
-		selector.text('medium password');
+		$('#container #output p').text('medium password');
 	} else if (score > 60 && score <= 80) {
-		selector.text('good password');
+		$('#container #output p').text('good password');
 	} else if (score > 80 && score < 100) {
-		selector.text('very good password');
-	} else if (score == 100) {
-		selector.text('perfect password');
+		$('#container #output p').text('very good password');
+	} else if (score >= maxScore) {
+		$('#container #output p').text('perfect password');
 	} else { 
-		selector.text('wrong input');
+		$('#container #output p').text('test');
 	} 
 }
 

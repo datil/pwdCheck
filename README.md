@@ -15,4 +15,4 @@ actual strength of your password:
  * repetitions of characters
 
 =================================
-	2014-06-17	Dario Tilgner
+	Dario Tilgner
