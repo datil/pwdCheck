@@ -57,7 +57,7 @@ function analyzePwd(pwd) {
                 var checkedChars;
 		screeningChar = pwd.substr(j, 1);
 
-		if(checkedChars.indexOf(screeningChar) !== -1) {
+		if(checkedChars.indexOf(screeningChar) === -1) {
 			counter = pwd.split(screeningChar).length;
 			
 			/* we search for the highest percentage of repetitions 
