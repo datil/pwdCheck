@@ -54,26 +54,27 @@ function analyzePwd(pwd) {
 	// search for repetitions
 	for (j = 0; j < length; j++) {
 		counter = 0;
+                var checkedChars;
 		screeningChar = pwd.substr(j, 1);
 
-		for (i = 0; i < length; i++) {
-			if (screeningChar == pwd.substr(i, 1)) {
-				counter++;
+		if(checkedChars.indexOf(screeningChar) !== -1) {
+			counter = pwd.split(screeningChar).length;
+			
+			/* we search for the highest percentage of repetitions 
+			 *
+			 * Example: 
+			 *		Password is "abcdddabacde"
+			 *			a	-	3 times		-	25.00 %
+			 *			b	-	2 times		-	16.67 %
+			 *			c	-	2 times		-	16.67 %
+			 *			d	-	4 times		-	33.33 %
+			 *			e	-	1 time		-	 8.34 %
+			 */
+			if (((counter*100)/length) >= maxPercentRepetitions) {
+				maxPercentRepetitions = new Number((counter*100)/length);
+				maxPercentRepetitions = maxPercentRepetitions.toPrecision(4);
 			}
-		}
-		/* we search for the highest percentage of repetitions 
-		 *
-		 * Example: 
-		 *		Password is "abcdddabacde"
-		 *			a	-	3 times		-	25.00 %
-		 *			b	-	2 times		-	16.67 %
-		 *			c	-	2 times		-	16.67 %
-		 *			d	-	4 times		-	33.33 %
-		 *			e	-	1 time		-	 8.34 %
-		 */
-		if (((counter*100)/length) >= maxPercentRepetitions) {
-			maxPercentRepetitions = new Number((counter*100)/length);
-			maxPercentRepetitions = maxPercentRepetitions.toPrecision(4);
+			checkedChars += screeningChar;
 		}
 	}
 	// repetitions have to be considered in relation to the given passwords length
